@@ -40,11 +40,7 @@ const PrismaModal = props => {
         // POST request using fetch inside useEffect React hook
         const requestOptions = {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin' : '*',
-                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'
-            },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(input)
         };
         fetch('https://2gppeqneth.execute-api.us-east-1.amazonaws.com/dev', requestOptions)
