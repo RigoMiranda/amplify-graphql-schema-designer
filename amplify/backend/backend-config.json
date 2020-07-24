@@ -16,5 +16,12 @@
 				}
 			}
 		}
+	},
+	"function": {
+		"amplifygraphqlschemaa58b2f6b": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda"
+		}
 	}
 }

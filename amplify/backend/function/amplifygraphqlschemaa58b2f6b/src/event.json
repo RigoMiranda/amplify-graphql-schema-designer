@@ -1,0 +1,20 @@
+[
+  {
+    "id": "0.41662289911474915",
+    "name": "Test",
+    "isTable": false,
+    "isSearchable": false,
+    "isEditable": true,
+    "type": "type",
+    "indexes": [],
+    "connections": [],
+    "authentication": [],
+    "arguments": [],
+    "resolvers": {
+      "queries": true,
+      "mutations": true,
+      "subscriptions": false,
+      "timestamps": true
+    }
+  }
+]

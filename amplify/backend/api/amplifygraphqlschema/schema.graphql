@@ -84,6 +84,6 @@ enum ToAllow {
   private
 }
 
-type Mutation {
-  generateSchema(input: String): String @function(name: "amplify-template")
+type Query {
+  generateSchema(input: String): String @function(name: "generateGrapQLSchema-${env}")
 }

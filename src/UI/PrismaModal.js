@@ -5,7 +5,7 @@ import PrismaCode from './PrismaCode';
 
 // AWS Amplify
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { generateSchema } from '../graphql/mutations';
+import { generateSchema } from '../graphql/queries';
 import awsExports from "../aws-exports";
 Amplify.configure(awsExports);
 

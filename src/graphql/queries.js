@@ -1,6 +1,11 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const generateSchema = /* GraphQL */ `
+  query GenerateSchema($input: String) {
+    generateSchema(input: $input)
+  }
+`;
 export const getGraph = /* GraphQL */ `
   query GetGraph($id: ID!) {
     getGraph(id: $id) {

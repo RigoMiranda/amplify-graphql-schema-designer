@@ -1,11 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const generateSchema = /* GraphQL */ `
-  mutation GenerateSchema($input: String) {
-    generateSchema(input: $input)
-  }
-`;
 export const createGraph = /* GraphQL */ `
   mutation CreateGraph(
     $input: CreateGraphInput!
