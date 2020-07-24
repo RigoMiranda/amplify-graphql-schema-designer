@@ -49,32 +49,11 @@ const PrismaModal = props => {
         } catch (err) {
             setCode(`There was an error generating schema! ${err}`)
         }
-        // // POST request using fetch inside useEffect React hook
-        // const requestOptions = {
-        //     method: 'POST',
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify(input)
-        // };
-        // fetch('https://7namp2tz4f.execute-api.us-east-1.amazonaws.com/dev', requestOptions)
-        // .then(async response => {
-        //     const data = await response.json();
-        //     // check for error response
-        //     if (!response.ok) {
-        //         // get error message from body or default to response status
-        //         const error = (data && data.message) || response.status;
-        //         return Promise.reject(error);
-        //     }
-
-        //     setCode(data);
-        // })
-        // .catch(error => {
-        //     // this.setState({ errorMessage: error.toString() });
-        //     setCode(`There was an error! ${error}`)
-        // });
     }
 
     useEffect(() => {
         if (modalShow) {
+            setCode('Generating Code...');
             GetCode(graphCode);
         }
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
