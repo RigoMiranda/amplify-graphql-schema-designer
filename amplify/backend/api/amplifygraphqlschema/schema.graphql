@@ -1,4 +1,6 @@
-type Graph @model( subscriptions: null ) {
+type Graph
+@auth(rules: [{ allow: public }])
+@model ( subscriptions: null ) {
   id: ID
   name: String!
   isTable: Boolean!
