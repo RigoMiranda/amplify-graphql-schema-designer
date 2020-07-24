@@ -1,0 +1,89 @@
+type Graph @model( subscriptions: null ) {
+  id: ID
+  name: String!
+  isTable: Boolean!
+  isSearchable: Boolean!
+  type: GraphType!
+  indexes: [Index]
+  authentication: [Auth]
+  arguments: [Argument]
+  resolver: Resolver!
+}
+
+type Argument {   
+    id: ID
+    name: String!
+    type: ArgumentType!
+    required: Boolean
+    connection: Connection
+}
+
+type Resolver {
+  queries: Boolean
+  mutations: Boolean
+  subscriptions: Boolean
+  timestamps: Boolean
+}
+
+type Connection {
+  id: ID
+  argumentId: String!
+  type: ConnectionType!
+  keyName: String
+  fields: [String]
+}
+
+type Index {
+  id: ID
+  name: String!
+  fields: String
+  queryField: String
+}
+
+type Auth {
+  id: ID
+  allow: ToAllow!
+  arg: String!
+  operations: Operations!
+}
+
+type Operations {
+  create: Boolean
+  update: Boolean
+  delete: Boolean
+  read: Boolean
+}
+
+enum GraphType {
+  type
+  enum
+  input
+  interface
+}
+
+enum ArgumentType {
+  String
+  ID
+  Boolean
+  Int
+  Float
+  AWSDateTime
+}
+
+enum ConnectionType {
+  has_one
+  one_to_many
+  belongs_to
+  many_to_many
+}
+
+enum ToAllow {
+  owner
+  group
+  public
+  private
+}
+
+type Mutation {
+  generateSchema(input: String): String @function(name: "amplify-template")
+}

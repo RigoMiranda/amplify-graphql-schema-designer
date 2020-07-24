@@ -3,6 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import PrismaCode from './PrismaCode';
 
+// AWS Amplify
+import Amplify, { API, graphqlOperation } from 'aws-amplify'
+import { generateSchema } from '../graphql/mutations';
+import awsExports from "../aws-exports";
+Amplify.configure(awsExports);
+
 function getModalStyle() {
     const top = 50;
     const left = 50;
@@ -36,29 +42,35 @@ const PrismaModal = props => {
 
     const [code, setCode] = useState('Generating Code...');
 
-    const GetCode = (input) => {
-        // POST request using fetch inside useEffect React hook
-        const requestOptions = {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(input)
-        };
-        fetch('https://7namp2tz4f.execute-api.us-east-1.amazonaws.com/dev', requestOptions)
-        .then(async response => {
-            const data = await response.json();
-            // check for error response
-            if (!response.ok) {
-                // get error message from body or default to response status
-                const error = (data && data.message) || response.status;
-                return Promise.reject(error);
-            }
+    async function GetCode (data) {
+        try {
+            const schema = await API.graphql(graphqlOperation(generateSchema, {input: JSON.stringify(data)}))
+            setCode(JSON.parse(schema.data.generateSchema));
+        } catch (err) {
+            setCode(`There was an error generating schema! ${err}`)
+        }
+        // // POST request using fetch inside useEffect React hook
+        // const requestOptions = {
+        //     method: 'POST',
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify(input)
+        // };
+        // fetch('https://7namp2tz4f.execute-api.us-east-1.amazonaws.com/dev', requestOptions)
+        // .then(async response => {
+        //     const data = await response.json();
+        //     // check for error response
+        //     if (!response.ok) {
+        //         // get error message from body or default to response status
+        //         const error = (data && data.message) || response.status;
+        //         return Promise.reject(error);
+        //     }
 
-            setCode(data);
-        })
-        .catch(error => {
-            // this.setState({ errorMessage: error.toString() });
-            setCode(`There was an error! ${error}`)
-        });
+        //     setCode(data);
+        // })
+        // .catch(error => {
+        //     // this.setState({ errorMessage: error.toString() });
+        //     setCode(`There was an error! ${error}`)
+        // });
     }
 
     useEffect(() => {
