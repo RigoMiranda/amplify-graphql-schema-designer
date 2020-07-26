@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles }   from '@material-ui/core/styles';
 import Table            from '@material-ui/core/Table';
 import TableBody        from '@material-ui/core/TableBody';
 import TableCell        from '@material-ui/core/TableCell';
@@ -20,52 +19,18 @@ import SaveIcon         from '@material-ui/icons/Save';
 import AddIcon          from '@material-ui/icons/Add';
 import InfoButton       from './InfoButton';
 import { connectionInfo } from '../InfoConstants';
-
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650
-    },
-    box: {
-        width: '100p%',
-        height: '60px'
-    },
-    button: {
-        padding: '0px',
-        maxWidth: '150px',
-        maxHeight: '30px'
-    }
-});
+import { connectionTypes } from '../Constants';
+import { DefaultComponentsStyles } from '../MaterialConstants';
 
 const Connections = props => {
 
-    const classes = useStyles();
+    const classes = DefaultComponentsStyles();
     const {
-        graphs,
         newConnection,
         updateGraph
     } = props;
 
     const [ graph, setGraph] = useState( props.graph );
-
-    const connectionTypes = [
-        {
-            'name':  'Has one',
-            'value': 'has-one'
-        },
-        {
-            'name':  'One-to-Many',
-            'value': 'one-to-many'
-        },
-        {
-            'name':  'Belongs to',
-            'value': 'belongs-to'
-        },
-        {
-            'name':  'Many-to-Many',
-            'value': 'many-to-many'
-        }
-    ]
-
     const [ argumentsName, setArgumentsName ] = useState( [] );
 
     const getArgumentsName = graph => {
@@ -119,7 +84,7 @@ const Connections = props => {
     useEffect( () => {
         getArgumentsName(props.graph);
         setGraph(props.graph);
-    }, [graphs, props] );
+    }, [ props] );
 
     return (
         <TableContainer component={Paper}>

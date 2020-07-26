@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Connections      from './Connections';
-import { makeStyles }   from '@material-ui/core/styles';
 import Table            from '@material-ui/core/Table';
 import TableBody        from '@material-ui/core/TableBody';
 import TableCell        from '@material-ui/core/TableCell';
@@ -20,33 +19,17 @@ import EditIcon         from '@material-ui/icons/Edit';
 import SaveIcon         from '@material-ui/icons/Save';
 import AddIcon          from '@material-ui/icons/Add';
 import InfoButton       from './InfoButton';
-
-import { defaultTypes, typeTableHeader, enumTableHeader } from '../Constants';
-
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    },
-    box: {
-        width: '100%',
-        height: '60px'
-    },
-    button: {
-        maxWidth: '150px',
-        maxHeight: '30px'
-    }
-});
+import { DefaultComponentsStyles } from '../MaterialConstants'; 
+import { typeTableHeader, enumTableHeader } from '../Constants';
 
 const Argument = props => {
 
-    const classes = useStyles();
+    const classes = DefaultComponentsStyles();
     const {
         newArgument,
         updateGraph,
         typesGraphs,
-        setTypesGraphs,
         graph,
-        graphs,
         info
     } = props;
 
@@ -58,29 +41,7 @@ const Argument = props => {
         props.updateGraph(temp);
     }
 
-    const addGraphToTypes = ( graphs ) => {
-        let typeList = [ ...defaultTypes ];
-        for (const g of graphs) {
-            if ( g.name !== '' ) {
-                typeList.push({
-                    'name':  g.name,
-                    'value': g.name
-                });
-                typeList.push({
-                    'name':  `[${g.name}]`,
-                    'value': `[${g.name}]`
-                });
-            }
-        }
-        return typeList;
-    }
-
-    const tableHeader = ((graph.type === 'type')? typeTableHeader : enumTableHeader)
-
-    useEffect( () => {
-        const typeList = addGraphToTypes(graphs);
-        setTypesGraphs(typeList);
-    }, [graphs, setTypesGraphs] );
+    const tableHeader = ((graph.type === 'type')? typeTableHeader : enumTableHeader);
 
     return (
     <div>
@@ -199,11 +160,10 @@ const Argument = props => {
             updateGraph     = { updateGraph }
             newConnection   = { props.newConnection }
             graph           = { graph }
-            graphs          = { graphs }
         /> 
         : ''}
     </div>
     );
 };
 
-export default Argument;
+export default React.memo (Argument );

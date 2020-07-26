@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx             from 'clsx';
 import Drawer           from '@material-ui/core/Drawer';
@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
     },
     }));
 
-const PersistentDrawerLeft = props => {
+const PersistentDrawerLeft = React.memo( props => {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
@@ -170,6 +170,28 @@ const PersistentDrawerLeft = props => {
             setModalShow( true );
         }
     }, [graphs] );
+
+    const addGraphToTypes = useCallback( ( graphs ) => {
+        let typeList = [ ...defaultTypes ];
+        for (const g of graphs) {
+            if ( g.name !== '' ) {
+                typeList.push({
+                    'name':  g.name,
+                    'value': g.name
+                });
+                typeList.push({
+                    'name':  `[${g.name}]`,
+                    'value': `[${g.name}]`
+                });
+            }
+        }
+        return typeList;
+    }, [] );
+
+    useEffect( () => {
+        const typeList = addGraphToTypes(graphs);
+        setTypesGraphs(typeList);
+    }, [ graphs, addGraphToTypes ] );
     
 
     return (
@@ -279,7 +301,6 @@ const PersistentDrawerLeft = props => {
                             {(graph.type !== 'enum')?
                                 <Graph
                                     graph               = { graph }
-                                    graphs              = { graphs }
                                     removeGraph         = { removeGraph }
                                     updateGraph         = { updateGraph }
                                     newArgument         = { newArgument }
@@ -288,8 +309,6 @@ const PersistentDrawerLeft = props => {
                                     newConnection       = { newConnection }
                                     key                 = { `graph-type-${graph.id}-${i}` }
                                     typesGraphs         = { typesGraphs }
-                                    setTypesGraphs      = { setTypesGraphs }
-                                    { ...props }
                                 />
                                 :
                                 <EnumGraph
@@ -298,7 +317,6 @@ const PersistentDrawerLeft = props => {
                                     updateGraph     = { updateGraph }
                                     newArgument     = { newArgument }
                                     key             = { `graph-enum-${graph.id}-${i}` }
-                                    { ...props }
                                 />
                             }
                         </Grid>
@@ -316,6 +334,6 @@ const PersistentDrawerLeft = props => {
         }
         </div>
     );
-}
+});
 
-export default React.memo( PersistentDrawerLeft );
+export default PersistentDrawerLeft;

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles }   from '@material-ui/core/styles';
 import Table            from '@material-ui/core/Table';
 import TableBody        from '@material-ui/core/TableBody';
 import TableCell        from '@material-ui/core/TableCell';
@@ -19,79 +18,12 @@ import EditIcon         from '@material-ui/icons/Edit';
 import SaveIcon         from '@material-ui/icons/Save';
 import AddIcon          from '@material-ui/icons/Add';
 import InfoButton       from './InfoButton';
-
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    },
-    box: {
-        width: '100%',
-        height: '60px'
-    },
-    button: {
-        maxWidth: '150px',
-        maxHeight: '30px'
-    }
-});
-
+import { authTableHeader, toAllow } from '../Constants';
+import { DefaultComponentsStyles } from '../MaterialConstants'; 
 
 const Auth = props => {
 
-    const authTableHeader = [
-        {
-            'title': 'Allow',
-            'info': null
-        },
-        {
-            'title': 'Owner/Group',
-            'info': null
-        },
-        {
-            'title': 'Create',
-            'info': null
-        },
-        {
-            'title': 'Update',
-            'info': null
-        },
-        {
-            'title': 'Delete',
-            'info': null
-        },
-        {
-            'title': 'Read',
-            'info': null
-        },
-        {
-            'title': 'Actions',
-            'info': null
-        }
-    ]
-
-    const toAllow = [
-        { 
-            'name': 'Owner',
-            'value': 'owner',
-            'needArg': true
-        },
-        { 
-            'name': 'Group',
-            'value': 'group',
-            'needArg': true
-        },
-        { 
-            'name': 'Public',
-            'value': 'public',
-            'needArg': false
-        },
-        { 
-            'name': 'Private',
-            'value': 'private',
-            'needArg': false
-        },
-    ]
-
-    const classes = useStyles();
+    const classes = DefaultComponentsStyles();
     const {
         newAuthentication,
         updateGraph,

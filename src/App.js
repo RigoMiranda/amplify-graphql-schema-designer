@@ -1,45 +1,12 @@
-import React, { useState } from 'react';
-import Grid  from '@material-ui/core/Grid';
-import PersistentDrawerLeft from './UI/PersistentDrawerLeft'
-import { 
-    makeStyles,
-    createMuiTheme,
-    ThemeProvider
-  } from '@material-ui/core/styles';
-
-// Style
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-  sideBar: {
-    height: '100vh',
-    maxWidth: '100px',
-    backgroundColor: 'red'
-  },
-  body: {
-    height: '100vh',
-    width: '100%'
-  },
-  footer: {
-    height: '100px',
-    width: '100%',
-    backgroundColor: 'yellow'
-  },
-  graph: {
-    padding: '15px',
-  }
-}));
-// End Style
+import React, { useState }  from 'react';
+import Grid                 from '@material-ui/core/Grid';
+import PersistentDrawerLeft from './UI/PersistentDrawerLeft';
+import { AppStyle }         from './MaterialConstants';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 function App() {
-  const [ themeColor, setThemeColor ]     = useState( false );
-  const classes                           = useStyles();
+  const [ themeColor, setThemeColor ] = useState( false );
+  const classes                       = AppStyle();
 
   const theme = React.useMemo(
     () =>
@@ -72,4 +39,4 @@ function App() {
   );
 }
 
-export default React.memo( App );
+export default App;

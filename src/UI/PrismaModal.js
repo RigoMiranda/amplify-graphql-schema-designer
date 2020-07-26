@@ -3,12 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import PrismaCode from './PrismaCode';
 
-// AWS Amplify
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { generateSchema } from '../graphql/queries';
-import awsExports from "../aws-exports";
-Amplify.configure(awsExports);
-
 function getModalStyle() {
     const top = 50;
     const left = 50;
@@ -42,18 +36,39 @@ const PrismaModal = props => {
 
     const [code, setCode] = useState('Generating Code...');
 
-    async function GetCode (data) {
-        try {
-            const schema = await API.graphql(graphqlOperation(generateSchema, {input: JSON.stringify(data)}))
-            setCode(JSON.parse(schema.data.generateSchema));
-        } catch (err) {
-            setCode(`There was an error generating schema! ${err}`)
-        }
+    const GetCode = (input) => {
+        // POST request using fetch inside useEffect React hook
+        const requestOptions = {
+            'method': 'POST',
+            'headers': {
+                'Content-Type': 'application/json',
+                // ' Access-Control-Allow-Origin': 'http://localhost:3000',
+                'Access-Control-Request-Method': 'POST, OPTIONS',
+                // 'Access-Control-Allow-Credentials': 'true',
+                // 'Access-Control-Request-Headers': 'Content-Type, Authorization'
+            },
+            'body': JSON.stringify(input)
+        };
+        fetch('https://4sph50ws1k.execute-api.us-east-1.amazonaws.com/dev/', requestOptions)
+        .then(async response => {
+            const data = await response.json();
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response status
+                const error = (data && data.message) || response.status;
+                return Promise.reject(error);
+            }
+
+            setCode(data);
+        })
+        .catch(error => {
+            // this.setState({ errorMessage: error.toString() });
+            setCode(`There was an error! ${error}`)
+        });
     }
 
     useEffect(() => {
         if (modalShow) {
-            setCode('Generating Code...');
             GetCode(graphCode);
         }
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
@@ -89,4 +104,4 @@ const PrismaModal = props => {
     );
 };
 
-export default React.memo( PrismaModal );
+export default PrismaModal;

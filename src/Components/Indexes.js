@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { makeStyles }   from '@material-ui/core/styles';
 import Table            from '@material-ui/core/Table';
 import TableBody        from '@material-ui/core/TableBody';
 import TableCell        from '@material-ui/core/TableCell';
@@ -16,25 +15,11 @@ import EditIcon         from '@material-ui/icons/Edit';
 import SaveIcon         from '@material-ui/icons/Save';
 import AddIcon          from '@material-ui/icons/Add';
 import InfoButton       from './InfoButton';
-
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    },
-    box: {
-        width: '100%',
-        height: '60px'
-    },
-    button: {
-        padding: '0px',
-        maxWidth: '150px',
-        maxHeight: '30px'
-    }
-});
+import { DefaultComponentsStyles } from '../MaterialConstants'; 
 
 const Indexes = props => {
 
-    const classes = useStyles();
+    const classes = DefaultComponentsStyles();
     const {
         newIndex,
         updateGraph,

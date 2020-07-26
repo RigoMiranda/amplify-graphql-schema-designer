@@ -5,7 +5,6 @@ import Indexes   from './Components/Indexes';
 import Resolvers from './Components/Resolvers';
 import Auth      from './Components/Auth';
 
-
 const defaultArgumentList = (id) => {
     return [
         {   
@@ -17,7 +16,7 @@ const defaultArgumentList = (id) => {
             'connection'    : ''
         }
     ]
-}
+};
 
 export const defaultGraph = (id, argId) => {
     return {
@@ -38,7 +37,7 @@ export const defaultGraph = (id, argId) => {
             'timestamps'    : true
         }
     }
-}
+};
 
 export const defaultArgument = (id) => {
     return {
@@ -49,7 +48,7 @@ export const defaultArgument = (id) => {
         'isEditable'    : true,
         'connection'    : ''
     }
-}
+};
 
 export const defaultIndex = (id) => {
     return {
@@ -59,7 +58,7 @@ export const defaultIndex = (id) => {
         'queryField'    : '',
         'isEditable'    : true
     }
-}
+};
 
 export const defaultAuthentication = (id) => {
     return {
@@ -74,7 +73,7 @@ export const defaultAuthentication = (id) => {
         },
         'isEditable'    : true
     }
-}
+};
 
 export const graphTypes = [
     {
@@ -89,7 +88,7 @@ export const graphTypes = [
     //     'name'  : 'Interface',
     //     'value' : 'interface'
     // }
-]
+];
 
 export const defaultTypes = [
     {
@@ -132,7 +131,7 @@ export const defaultTypes = [
         'name'  : '[Float]',
         'value' : '[Float]'
     }
-]
+];
 
 export const defaultConnection = (id) => {
     return {
@@ -143,7 +142,7 @@ export const defaultConnection = (id) => {
         'fields'        : '',
         'isEditable'    : true
     }
-}
+};
 
 export const graphSections = [
     { 
@@ -171,7 +170,7 @@ export const graphSections = [
         'class': Resolvers,
         'info': resolvers
     },
-]
+];
 
 export const generalTableRows = [
     {
@@ -190,7 +189,7 @@ export const generalTableRows = [
         'title' : 'Elasticsearch',
         'info'  : searchable
     }
-]
+];
 
 export const graphEnumSections = [
     { 
@@ -203,7 +202,7 @@ export const graphEnumSections = [
         'class': Argument,
         'info': argument
     }
-]
+];
 
 export const graphEnumRows = [
     {
@@ -214,16 +213,96 @@ export const graphEnumRows = [
         'title' : 'Graph Type',
         'info'  : graphQlTypes
     }
-]
+];
 
 export const typeTableHeader = [
     'Name',
     'Type',
     'Required',
     'Actions'
-]
+];
 
 export const enumTableHeader = [
     'Name',
     'Actions'
-]
+];
+
+export const authTableHeader = [
+    {
+        'title': 'Allow',
+        'info': null
+    },
+    {
+        'title': 'Owner/Group',
+        'info': null
+    },
+    {
+        'title': 'Create',
+        'info': null
+    },
+    {
+        'title': 'Update',
+        'info': null
+    },
+    {
+        'title': 'Delete',
+        'info': null
+    },
+    {
+        'title': 'Read',
+        'info': null
+    },
+    {
+        'title': 'Actions',
+        'info': null
+    }
+];
+
+export const toAllow = [
+    { 
+        'name': 'Owner',
+        'value': 'owner',
+        'needArg': true
+    },
+    { 
+        'name': 'Group',
+        'value': 'group',
+        'needArg': true
+    },
+    { 
+        'name': 'Public',
+        'value': 'public',
+        'needArg': false
+    },
+    { 
+        'name': 'Private',
+        'value': 'private',
+        'needArg': false
+    },
+];
+
+export const connectionTypes = [
+    {
+        'name':  'Has one',
+        'value': 'has-one'
+    },
+    {
+        'name':  'One-to-Many',
+        'value': 'one-to-many'
+    },
+    {
+        'name':  'Belongs to',
+        'value': 'belongs-to'
+    },
+    {
+        'name':  'Many-to-Many',
+        'value': 'many-to-many'
+    }
+];
+
+export const resolversData = [
+    { 'name':'Queries' },
+    { 'name':'Mutations' },
+    { 'name':'Subscriptions' },
+    { 'name':'Timestamps'  }
+];

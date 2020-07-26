@@ -1,5 +1,4 @@
 import React            from 'react';
-import { makeStyles }   from '@material-ui/core/styles';
 import Table            from '@material-ui/core/Table';
 import TableBody        from '@material-ui/core/TableBody';
 import TableCell        from '@material-ui/core/TableCell';
@@ -8,32 +7,12 @@ import TableHead        from '@material-ui/core/TableHead';
 import TableRow         from '@material-ui/core/TableRow';
 import Paper            from '@material-ui/core/Paper';
 import Switch           from '@material-ui/core/Switch';
-
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    },
-    box: {
-        maxWidth: '200px',
-        height: '60px'
-    },
-    button: {
-        padding: '0px',
-        maxWidth: '150px',
-        maxHeight: '30px'
-    }
-});
-
-const resolversData = [
-    { 'name':'Queries' },
-    { 'name':'Mutations' },
-    { 'name':'Subscriptions' },
-    { 'name':'Timestamps'  }
-]
+import { DefaultComponentsStyles } from '../MaterialConstants'; 
+import { resolversData } from '../Constants';
 
 const Resolvers = props => {
 
-    const classes                   = useStyles();
+    const classes                   = DefaultComponentsStyles();
     const { graph , updateGraph }   = props;
 
     const updateResolver = resolver => {

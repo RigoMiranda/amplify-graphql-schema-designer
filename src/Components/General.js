@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PrismaModal      from '../UI/PrismaModal';
-import { makeStyles }   from '@material-ui/core/styles';
 import Table            from '@material-ui/core/Table';
 import TableBody        from '@material-ui/core/TableBody';
 import TableCell        from '@material-ui/core/TableCell';
@@ -20,25 +19,12 @@ import InfoButton       from './InfoButton';
 import Tooltip          from '@material-ui/core/Tooltip';
 import EditIcon         from '@material-ui/icons/Edit';
 import SaveIcon         from '@material-ui/icons/Save';
+import { DefaultComponentsStyles } from '../MaterialConstants'; 
 import { graphTypes, generalTableRows, graphEnumRows } from '../Constants';
-
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    },
-    box: {
-        width: '100%',
-        maxHeight: '60px'
-    },
-    button: {
-        width: '130px',
-        maxHeight: '50px'
-    }
-});
 
 const General = props => {
 
-    const classes = useStyles();
+    const classes = DefaultComponentsStyles();
     const [modalShow, setModalShow] = useState(false);
     const {
         removeGraph,

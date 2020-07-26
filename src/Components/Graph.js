@@ -49,7 +49,7 @@ const AccordionDetails = withStyles((theme) => ({
 }))(MuiAccordionDetails);
 
 
-const Graph = props => {
+const Graph = React.memo (props => {
     const [expanded, setExpanded] = React.useState('panel0');
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
@@ -89,6 +89,6 @@ const Graph = props => {
             })}
         </React.Fragment>
     );
-}
+});
 
 export default Graph;
