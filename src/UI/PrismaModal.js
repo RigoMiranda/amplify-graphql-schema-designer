@@ -49,7 +49,7 @@ const PrismaModal = props => {
             },
             'body': JSON.stringify(input)
         };
-        fetch('https://4sph50ws1k.execute-api.us-east-1.amazonaws.com/dev/', requestOptions)
+        fetch('https://89jxku41b4.execute-api.us-east-1.amazonaws.com/dev/schema', requestOptions)
         .then(async response => {
             const data = await response.json();
             // check for error response
