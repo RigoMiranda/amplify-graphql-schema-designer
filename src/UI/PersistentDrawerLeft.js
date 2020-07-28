@@ -22,6 +22,8 @@ import ChevronLeftIcon  from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Light            from '@material-ui/icons/Brightness7';
 import Night            from '@material-ui/icons/Brightness2';
+import Backdrop         from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Graph            from '../Components/Graph';
 import EnumGraph        from '../Components/EnumGraph';
 import PrismaModal      from './PrismaModal';
@@ -108,6 +110,7 @@ const PersistentDrawerLeft = React.memo( props => {
     const [ graphs, setGraphs ]             = useState( [] );
     const [ typesGraphs,  setTypesGraphs ]  = useState( defaultTypes );
     const [ modalShow, setModalShow ]       = useState( false );
+    const [showLoading, setShowLoading]     = useState( false );
 
     const handleDrawerOpen = useCallback( () => {
         setOpen(true);
@@ -191,6 +194,8 @@ const PersistentDrawerLeft = React.memo( props => {
     }, [] );
 
     const getSchemaById =  useCallback( id => {
+        setShowLoading(true);
+        setGraphs([]);
         const requestOptions = {
             'method': 'GET',
             'headers': {
@@ -211,6 +216,7 @@ const PersistentDrawerLeft = React.memo( props => {
             console.log(schemaGraphs);
 
             setGraphs(schemaGraphs);
+            setShowLoading(false);
         })
         .catch(error => {
             alert(`There was an error! ${error}`)
@@ -360,14 +366,15 @@ const PersistentDrawerLeft = React.memo( props => {
                 })}
             </Grid>
         </main>
-        {(!modalShow)? '' :
-            <PrismaModal
-                graphName       = 'GraphQL Schema'
-                graphCode       = { graphs }
-                modalShow       = { modalShow }
-                setModalShow    = { setModalShow }
-            />
-        }
+        <PrismaModal
+            graphName       = 'GraphQL Schema'
+            graphCode       = { graphs }
+            modalShow       = { modalShow }
+            setModalShow    = { setModalShow }
+        />
+        <Backdrop className={classes.backdrop} open={showLoading} onClick={setShowLoading}>
+            <CircularProgress color="inherit" />
+        </Backdrop>
         </div>
     );
 });
