@@ -306,3 +306,14 @@ export const resolversData = [
     { 'name':'Subscriptions' },
     { 'name':'Timestamps'  }
 ];
+
+export const schemaSamples = [
+    {
+        'title': 'Blog',
+        'id': '1236-4321-9876-6789'
+    },
+    {
+        'title': 'ToDo',
+        'id': '1236-4321-9876-6789'
+    }
+]

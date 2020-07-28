@@ -45,138 +45,138 @@ const Auth = props => {
     return (
         <React.Fragment>
             <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                <TableRow>
-                    {authTableHeader.map( (header, i ) => {
-                        return (
-                            <TableCell
-                                align="center"
-                                key   = {`auth-table-header-${graph.id}-${i}`}
-                            >
-                                { header.title }
-                            </TableCell>
-                        )
-                    })}
-
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                {graph.authentication.map( ( auth, i ) => {
-                    return (
-                        <TableRow key={`auth-${graph.id}-${i}`}>
-                            <TableCell align="center" >
-                            <Select
-                                value       = { auth.allow }
-                                disabled    = { !auth.isEditable }
-                                className   = {classes.selectEmpty}
-                                inputProps  = { { 'aria-label': 'Without label' } }
-                                onChange    = { event => {
-                                    graph.authentication[i].allow = event.target.value;
-                                    updateGraph(graph);
-                                }}
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                    <TableRow>
+                        {authTableHeader.map( (header, i ) => {
+                            return (
+                                <TableCell
+                                    align="center"
+                                    key   = {`auth-table-header-${graph.id}-${i}`}
                                 >
-                                {toAllow.map( ( allow ) => {
-                                    return <MenuItem value={`${allow.value}`}>{allow.name}</MenuItem>
-                                }) }
-                            </Select>
-                            </TableCell>
-                            <TableCell align="center">
-                                {(auth.allow === 'public' || auth.allow === 'private')? '' : (auth.allow === 'owner')?
-                                    <Select
-                                        value       = { auth.arg }
-                                        disabled    = { !auth.isEditable }
-                                        className   = {classes.selectEmpty}
-                                        inputProps  = { { 'aria-label': 'Without label' } }
-                                        onChange    = { event => {
+                                    { header.title }
+                                </TableCell>
+                            )
+                        })}
+
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {graph.authentication.map( ( auth, i ) => {
+                        return (
+                            <TableRow key={`auth-${graph.id}-${i}`}>
+                                <TableCell align="center" >
+                                <Select
+                                    value       = { auth.allow }
+                                    disabled    = { !auth.isEditable }
+                                    className   = {classes.selectEmpty}
+                                    inputProps  = { { 'aria-label': 'Without label' } }
+                                    onChange    = { event => {
+                                        graph.authentication[i].allow = event.target.value;
+                                        updateGraph(graph);
+                                    }}
+                                    >
+                                    {toAllow.map( ( allow ) => {
+                                        return <MenuItem value={`${allow.value}`}>{allow.name}</MenuItem>
+                                    }) }
+                                </Select>
+                                </TableCell>
+                                <TableCell align="center">
+                                    {(auth.allow === 'public' || auth.allow === 'private')? '' : (auth.allow === 'owner')?
+                                        <Select
+                                            value       = { auth.arg }
+                                            disabled    = { !auth.isEditable }
+                                            className   = {classes.selectEmpty}
+                                            inputProps  = { { 'aria-label': 'Without label' } }
+                                            onChange    = { event => {
+                                                graph.authentication[i].arg = event.target.value;
+                                                updateGraph(graph);
+                                            }}
+                                            >
+                                            {graph.arguments.map( ( args ) => {
+                                                return <MenuItem value={`${args.name}`}>{args.name}</MenuItem>
+                                            }) }
+                                        </Select>
+                                    :
+                                    <TextField 
+                                        required 
+                                        label           = "Required"
+                                        defaultValue    = { auth.arg }
+                                        disabled        = { !auth.isEditable }
+                                        onChange        = { event => {
                                             graph.authentication[i].arg = event.target.value;
                                             updateGraph(graph);
                                         }}
-                                        >
-                                        {graph.arguments.map( ( args ) => {
-                                            return <MenuItem value={`${args.name}`}>{args.name}</MenuItem>
-                                        }) }
-                                    </Select>
-                                :
-                                <TextField 
-                                    required 
-                                    label           = "Required"
-                                    defaultValue    = { auth.arg }
-                                    disabled        = { !auth.isEditable }
-                                    onChange        = { event => {
-                                        graph.authentication[i].arg = event.target.value;
-                                        updateGraph(graph);
-                                    }}
-                                />
-                                }
-                            </TableCell>
-                            <TableCell align="center">
-                                <Switch 
-                                    checked     = { auth.operations.create }
-                                    disabled    = { !auth.isEditable }
-                                    onClick     = { () => {
-                                        graph.authentication[i].operations.create = !auth.operations.create;
-                                        updateGraph(graph);
-                                    }}
-                                />
-                            </TableCell>
-                            <TableCell align="center">
-                                <Switch 
-                                    checked     = { auth.operations.update }
-                                    disabled    = { !auth.isEditable }
-                                    onClick     = { () => {
-                                        graph.authentication[i].operations.update = !auth.operations.update;
-                                        updateGraph(graph);
-                                    }}
-                                />
-                            </TableCell>
-                            <TableCell align="center">
-                                <Switch 
-                                    checked     = { auth.operations.delete }
-                                    disabled    = { !auth.isEditable }
-                                    onClick     = { () => {
-                                        graph.authentication[i].operations.delete = !auth.operations.delete;
-                                        updateGraph(graph);
-                                    }}
-                                />
-                            </TableCell>
-                            <TableCell align="center">
-                                <Switch 
-                                    checked     = { auth.operations.read }
-                                    disabled    = { !auth.isEditable }
-                                    onClick     = { () => {
-                                        graph.authentication[i].operations.read = !auth.operations.read;
-                                        updateGraph(graph);
-                                    }}
-                                />
-                            </TableCell>
-                            <TableCell align="center">
-                                <IconButton 
-                                        aria-label  = "edit" 
-                                        className   = {classes.margin}
+                                    />
+                                    }
+                                </TableCell>
+                                <TableCell align="center">
+                                    <Switch 
+                                        checked     = { auth.operations.create }
+                                        disabled    = { !auth.isEditable }
                                         onClick     = { () => {
-                                            graph.authentication[i].isEditable = !auth.isEditable;
+                                            graph.authentication[i].operations.create = !auth.operations.create;
                                             updateGraph(graph);
                                         }}
+                                    />
+                                </TableCell>
+                                <TableCell align="center">
+                                    <Switch 
+                                        checked     = { auth.operations.update }
+                                        disabled    = { !auth.isEditable }
+                                        onClick     = { () => {
+                                            graph.authentication[i].operations.update = !auth.operations.update;
+                                            updateGraph(graph);
+                                        }}
+                                    />
+                                </TableCell>
+                                <TableCell align="center">
+                                    <Switch 
+                                        checked     = { auth.operations.delete }
+                                        disabled    = { !auth.isEditable }
+                                        onClick     = { () => {
+                                            graph.authentication[i].operations.delete = !auth.operations.delete;
+                                            updateGraph(graph);
+                                        }}
+                                    />
+                                </TableCell>
+                                <TableCell align="center">
+                                    <Switch 
+                                        checked     = { auth.operations.read }
+                                        disabled    = { !auth.isEditable }
+                                        onClick     = { () => {
+                                            graph.authentication[i].operations.read = !auth.operations.read;
+                                            updateGraph(graph);
+                                        }}
+                                    />
+                                </TableCell>
+                                <TableCell align="center">
+                                    <IconButton 
+                                            aria-label  = "edit" 
+                                            className   = {classes.margin}
+                                            onClick     = { () => {
+                                                graph.authentication[i].isEditable = !auth.isEditable;
+                                                updateGraph(graph);
+                                            }}
+                                        >
+                                        {(auth.isEditable)? <SaveIcon/> : <EditIcon/>}
+                                    </IconButton>
+                                    <IconButton 
+                                        aria-label  = "delete" 
+                                        className   = {classes.margin}
+                                        onClick = {() => {
+                                            deleteAuth(auth.id);
+                                        }}
                                     >
-                                    {(auth.isEditable)? <SaveIcon/> : <EditIcon/>}
-                                </IconButton>
-                                <IconButton 
-                                    aria-label  = "delete" 
-                                    className   = {classes.margin}
-                                    onClick = {() => {
-                                        deleteAuth(auth.id);
-                                    }}
-                                >
-                                    <DeleteIcon />
-                                </IconButton>
-                            </TableCell>
-                        </TableRow>
-                    )
-                })}
-                </TableBody>
-            </Table>
-            <Box m={2} className   = { classes.box }>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
+                        )
+                    })}
+                    </TableBody>
+                </Table>
+                <Box m={2} className   = { classes.box }>
                 <Button
                     variant     = "contained"
                     color       = "primary"

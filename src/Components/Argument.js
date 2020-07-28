@@ -18,6 +18,7 @@ import DeleteIcon       from '@material-ui/icons/Delete';
 import EditIcon         from '@material-ui/icons/Edit';
 import SaveIcon         from '@material-ui/icons/Save';
 import AddIcon          from '@material-ui/icons/Add';
+import Grid             from '@material-ui/core/Grid';
 import InfoButton       from './InfoButton';
 import { DefaultComponentsStyles } from '../MaterialConstants'; 
 import { typeTableHeader, enumTableHeader } from '../Constants';
@@ -34,7 +35,6 @@ const Argument = props => {
     } = props;
 
     const [ theGraph, setGraph] = useState( graph );
-
     const deleteArgument = ( argumentId ) => {
         let temp = { ...props };
         temp.graph.arguments = temp.graph.arguments.filter(argument => argument.id !== argumentId);
@@ -44,125 +44,129 @@ const Argument = props => {
     const tableHeader = ((graph.type === 'type')? typeTableHeader : enumTableHeader);
 
     return (
-    <div>
-        <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-            <TableRow>
-                {tableHeader.map( (name, i) => {
-                    return( 
-                        <TableCell 
-                            align = "center"
-                            key   = {`argument-table-header-${graph.id}-${i}`}
-                        >
-                            { name } 
-                        </TableCell>);
-                })}
-
-            </TableRow>
-            </TableHead>
-            <TableBody>
-            {graph.arguments.map( ( argument, i ) => {
-                return (
-                    <TableRow key={`argument-${graph.id}-${i}`}>
-                        <TableCell align="center" >
-                            <TextField 
-                                required 
-                                label           = "Required"
-                                defaultValue    = { argument.name }
-                                disabled        = { !argument.isEditable }
-                                onChange        = { event => {
-                                    theGraph.arguments[i].name = event.target.value;
-                                    setGraph(theGraph);
-                                }}
-                            />
-                        </TableCell>
-                        {(graph.type === 'type')?
-                        <React.Fragment>
-                            <TableCell align="center">
-                                <Select
-                                    value       = { argument.type }
-                                    disabled    = { !argument.isEditable }
-                                    className   = {classes.selectEmpty}
-                                    inputProps  = { { 'aria-label': 'Without label' } }
-                                    onChange    = { event => {
-                                        graph.arguments[i].type = event.target.value;
-                                        updateGraph(graph);
-                                    }}
-                                    >
-                                    {typesGraphs.map( ( option ) => {
-                                        return (
-                                            <MenuItem 
-                                                value = {`${option.value}`}
-                                                key   = {`argument-menu-item-${graph.id}-${Math.random().toString()}`}
-                                            >
-                                                {option.name}
-                                            </MenuItem>
-                                        );
-                                    }) }
-                                </Select>
-                            </TableCell>
-                            <TableCell align="center">
-                                <Switch 
-                                    checked     = { argument.required }
-                                    disabled    = { !argument.isEditable }
-                                    onClick     = { () => {
-                                        graph.arguments[i].required = !graph.arguments[i].required;
-                                        updateGraph(graph);
-                                    }}
-                                />
-                            </TableCell>
-                        </React.Fragment>
-                        : ''}
-                        <TableCell align="center">
-                            <IconButton 
-                                    aria-label  = "edit" 
-                                    className   = {classes.margin}
-                                    onClick     = { () => {
-                                        graph.arguments[i].isEditable = !graph.arguments[i].isEditable;
-                                        updateGraph(graph);
-                                    }}
+        <Grid container spacing={3} >
+            <Grid item xs={12}>
+                <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                    <TableRow>
+                        {tableHeader.map( (name, i) => {
+                            return( 
+                                <TableCell 
+                                    align = "center"
+                                    key   = {`argument-table-header-${graph.id}-${i}`}
                                 >
-                                {(argument.isEditable)? <SaveIcon/> : <EditIcon/>}
-                            </IconButton>
-                            <IconButton 
-                                aria-label  = "delete" 
-                                className   = {classes.margin}
-                                onClick = {() => {
-                                    deleteArgument(argument.id)
-                                }}
-                            >
-                                <DeleteIcon />
-                            </IconButton>
-                        </TableCell>
+                                    { name } 
+                                </TableCell>);
+                        })}
+
                     </TableRow>
-                )
-            })}
-            </TableBody>
-        </Table>
-        <Box m={2} className   = { classes.box }>
-            <Button
-                variant     = "contained"
-                color       = "primary"
-                
-                startIcon   = {<AddIcon />}
-                onClick     = { () => {
-                    newArgument(graph);
-                }}
-            >
-                Argument
-            </Button>
-            <InfoButton info = {info} />
-        </Box>
-        </TableContainer>
-        {(graph.type === 'type')? 
-        <Connections
-            updateGraph     = { updateGraph }
-            newConnection   = { props.newConnection }
-            graph           = { graph }
-        /> 
-        : ''}
-    </div>
+                    </TableHead>
+                    <TableBody>
+                    {graph.arguments.map( ( argument, i ) => {
+                        return (
+                            <TableRow key={`argument-${graph.id}-${i}`}>
+                                <TableCell align="center" >
+                                    <TextField 
+                                        required 
+                                        label           = "Required"
+                                        defaultValue    = { argument.name }
+                                        disabled        = { !argument.isEditable }
+                                        onChange        = { event => {
+                                            theGraph.arguments[i].name = event.target.value;
+                                            setGraph(theGraph);
+                                        }}
+                                    />
+                                </TableCell>
+                                {(graph.type === 'type')?
+                                <React.Fragment>
+                                    <TableCell align="center">
+                                        <Select
+                                            value       = { argument.type }
+                                            disabled    = { !argument.isEditable }
+                                            className   = {classes.selectEmpty}
+                                            inputProps  = { { 'aria-label': 'Without label' } }
+                                            onChange    = { event => {
+                                                graph.arguments[i].type = event.target.value;
+                                                updateGraph(graph);
+                                            }}
+                                            >
+                                            {typesGraphs.map( ( option ) => {
+                                                return (
+                                                    <MenuItem 
+                                                        value = {`${option.value}`}
+                                                        key   = {`argument-menu-item-${graph.id}-${Math.random().toString()}`}
+                                                    >
+                                                        {option.name}
+                                                    </MenuItem>
+                                                );
+                                            }) }
+                                        </Select>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <Switch 
+                                            checked     = { argument.required }
+                                            disabled    = { !argument.isEditable }
+                                            onClick     = { () => {
+                                                graph.arguments[i].required = !graph.arguments[i].required;
+                                                updateGraph(graph);
+                                            }}
+                                        />
+                                    </TableCell>
+                                </React.Fragment>
+                                : ''}
+                                <TableCell align="center">
+                                    <IconButton 
+                                            aria-label  = "edit" 
+                                            className   = {classes.margin}
+                                            onClick     = { () => {
+                                                if (argument.name !== '' ) {
+                                                    graph.arguments[i].isEditable = !graph.arguments[i].isEditable;
+                                                    updateGraph(graph);
+                                                }
+                                            }}
+                                        >
+                                        {(argument.isEditable)? <SaveIcon/> : <EditIcon/>}
+                                    </IconButton>
+                                    <IconButton 
+                                        aria-label  = "delete" 
+                                        className   = {classes.margin}
+                                        onClick = {() => {
+                                            deleteArgument(argument.id)
+                                        }}
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
+                        )
+                    })}
+                    </TableBody>
+                </Table>
+                <Box m={2} className   = { classes.box }>
+                    <Button
+                        variant     = "contained"
+                        color       = "primary"
+                        
+                        startIcon   = {<AddIcon />}
+                        onClick     = { () => {
+                            newArgument(graph);
+                        }}
+                    >
+                        Argument
+                    </Button>
+                    <InfoButton info = {info} />
+                </Box>
+                </TableContainer>
+            </Grid>
+            <Grid item xs={12}>
+            <Connections
+                updateGraph     = { updateGraph }
+                newConnection   = { props.newConnection }
+                graph           = { graph }
+            /> 
+            </Grid>
+        </Grid>
     );
 };
 

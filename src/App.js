@@ -13,6 +13,12 @@ function App() {
       createMuiTheme({
         palette: {
           type: themeColor ? 'dark' : 'light',
+          primary: {
+            light: '#ff9900',
+            main: '#ff9900',
+            dark:'#ff9900',
+            contrastText: '#ffffff',
+          },
         },
       }),
     [themeColor],

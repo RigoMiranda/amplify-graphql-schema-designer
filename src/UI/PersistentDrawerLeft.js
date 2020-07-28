@@ -34,6 +34,8 @@ import {
     defaultAuthentication 
 } from '../Constants';
 
+import { schemaSamples }    from '../Constants';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -188,6 +190,33 @@ const PersistentDrawerLeft = React.memo( props => {
         return typeList;
     }, [] );
 
+    const getSchemaById =  useCallback( id => {
+        const requestOptions = {
+            'method': 'GET',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Request-Method': 'GET, OPTIONS'
+            }
+        };
+        fetch(`https://gqldesigner.codelabs.guru/schema?id=${id}`, requestOptions)
+        .then(async response => {
+    
+            const data = await response.json();
+            if (!response.ok) {
+                const error = (data && data.message) || response.status;
+                return Promise.reject(error);
+            }
+
+            const schemaGraphs = [...data.graphs];
+            console.log(schemaGraphs);
+
+            setGraphs(schemaGraphs);
+        })
+        .catch(error => {
+            alert(`There was an error! ${error}`)
+        });
+    },[] );
+
     useEffect( () => {
         const typeList = addGraphToTypes(graphs);
         setTypesGraphs(typeList);
@@ -273,10 +302,17 @@ const PersistentDrawerLeft = React.memo( props => {
                     </ListSubheader>
                 }
             >
-            {['Todo App', 'Chat App'].map((text, index) => (
-                <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <AddGraph /> : <CodeIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
+            {schemaSamples.map((schema, index) => (
+                <ListItem 
+                button 
+                key     = {schema.title} 
+                onClick ={()=> {
+                    getSchemaById(schema.id);    
+                }}>
+                <ListItemIcon>
+                    {index % 2 === 0 ? <AddGraph /> : <CodeIcon />}
+                </ListItemIcon>
+                <ListItemText primary={schema.title} />
                 </ListItem>
             ))}
             </List>

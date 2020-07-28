@@ -66,14 +66,15 @@ const General = props => {
                         key     = {`general-table-row-${graph.id}-${Math.random().toString()}`}
                     >
                         <TextField 
-                            required 
+                            required
+                            error           = { !Boolean(graph.name) }
                             label           = "Required"
                             placeholder     = 'Name'
                             defaultValue    = { graph.name }
                             disabled        = { status }
                             onChange        = { event => {
-                                graph.name = event.target.value;
-                                setGraph(graph);
+                                    graph.name = event.target.value;
+                                    setGraph(graph);
                             }}
                             InputProps={{
                                 startAdornment: (
@@ -81,7 +82,11 @@ const General = props => {
                                         aria-label="delete"
                                         className={classes.margin}
                                         size="small"
-                                        onClick={() => setGraphName(graph)}
+                                        onClick={() => {
+                                            if (graph.name !== '' ) {
+                                                setGraphName(graph);
+                                            }}
+                                        }
                                     >
                                         {(status)? <EditIcon/> : <SaveIcon/> }
                                     </IconButton>

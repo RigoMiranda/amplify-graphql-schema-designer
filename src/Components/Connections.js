@@ -19,7 +19,7 @@ import SaveIcon         from '@material-ui/icons/Save';
 import AddIcon          from '@material-ui/icons/Add';
 import InfoButton       from './InfoButton';
 import { connectionInfo } from '../InfoConstants';
-import { connectionTypes } from '../Constants';
+// import { connectionTypes } from '../Constants';
 import { DefaultComponentsStyles } from '../MaterialConstants';
 
 const Connections = props => {
@@ -87,6 +87,7 @@ const Connections = props => {
     }, [ props] );
 
     return (
+    <React.Fragment>
         <TableContainer component={Paper}>
         <Typography variant="h6" noWrap>
             Connections
@@ -95,7 +96,7 @@ const Connections = props => {
             <TableHead>
             <TableRow>
                 <TableCell align="center"> Argument </TableCell>
-                <TableCell align="center"> Type </TableCell>
+                {/* <TableCell align="center"> Type </TableCell> */}
                 <TableCell align="center"> Key Name </TableCell>
                 <TableCell align="center"> Fields </TableCell>
                 <TableCell align="center"> Actions </TableCell>
@@ -120,7 +121,7 @@ const Connections = props => {
                                 }) }
                             </Select>
                         </TableCell>
-                        <TableCell align="center">
+                        {/* <TableCell align="center">
                             <Select
                                 value       = { connection.type }
                                 disabled    = { !connection.isEditable }
@@ -135,11 +136,11 @@ const Connections = props => {
                                     return <MenuItem value={`${option.value}`}>{option.name}</MenuItem>
                                 }) }
                             </Select>
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell align="center">
                             <TextField 
-                                    required 
-                                    label           = "Required"
+                                    // required 
+                                    label           = "Optional"
                                     defaultValue    = { connection.keyName }
                                     placeholder     = 'byProject'
                                     disabled        = { !connection.isEditable }
@@ -203,6 +204,7 @@ const Connections = props => {
             <InfoButton info = { connectionInfo } />
         </Box>
         </TableContainer>
+    </React.Fragment>
     );
 };
 

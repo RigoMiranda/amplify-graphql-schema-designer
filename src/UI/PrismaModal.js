@@ -17,7 +17,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
     paper: {
         position: 'absolute',
-        width: '50%',
+        width: '75%',
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
@@ -37,15 +37,13 @@ const PrismaModal = props => {
     const [code, setCode] = useState('Generating Code...');
 
     const GetCode = (input) => {
+        console.log(JSON.stringify(input));
         // POST request using fetch inside useEffect React hook
         const requestOptions = {
             'method': 'POST',
             'headers': {
                 'Content-Type': 'application/json',
-                // ' Access-Control-Allow-Origin': 'http://localhost:3000',
                 'Access-Control-Request-Method': 'POST, OPTIONS',
-                // 'Access-Control-Allow-Credentials': 'true',
-                // 'Access-Control-Request-Headers': 'Content-Type, Authorization'
             },
             'body': JSON.stringify(input)
         };
