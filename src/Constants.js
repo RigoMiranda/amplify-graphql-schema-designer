@@ -313,7 +313,11 @@ export const schemaSamples = [
         'id': '1236-4321-9876-6789'
     },
     {
-        'title': 'ToDo',
-        'id': '1236-4321-9876-6789'
+        'title': 'Todo App',
+        'id': '1238-4321-9876-6789'
+    },
+    {
+        'title': 'Chat App',
+        'id': '1240-4321-9876-6789'
     }
 ]
