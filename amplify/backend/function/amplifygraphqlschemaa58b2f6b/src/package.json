@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "Apache-2.0",
   "dependencies": {
-    "handlebars": "^4.7.6"
+    "handlebars": "^4.7.7"
   },
   "devDependencies": {
     "mustache": "^4.0.1"
